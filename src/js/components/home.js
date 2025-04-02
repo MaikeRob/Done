@@ -1,4 +1,5 @@
 import '../../css/home.css';
+import '../../css/task.css';
 
 const template = document.createElement('template');
 
@@ -8,6 +9,14 @@ template.innerHTML = `
             <div class="tasks-header-container">
                 <p class="header-label">To-do</p>
             </div>
+            <ul class="tasks-container">
+                <li class="task-frame">
+                    <div class="task">
+                        <div class="task-title" contenteditable="true" data-placeholder="Título"></div>
+                        <div class="task-description" contenteditable="true" data-placeholder="Descrição"></div>
+                    </div>
+                </li>
+            </ul>
             <div class="new-task-button-container">
                 <button class="new-task-button">+</button>
             </div>
@@ -16,6 +25,8 @@ template.innerHTML = `
             <div class="tasks-header-container">
                 <p class="header-label">In progress</p>
             </div>
+            <ul class="tasks-container">
+            </ul>            
             <div class="new-task-button-container">
                 <button class="new-task-button">+</button>
             </div>
@@ -24,6 +35,8 @@ template.innerHTML = `
             <div class="tasks-header-container">
                 <p class="header-label">Done</p>
             </div>
+            <ul class="tasks-container">
+            </ul> 
             <div class="new-task-button-container">
                 <button class="new-task-button">+</button>
             </div>

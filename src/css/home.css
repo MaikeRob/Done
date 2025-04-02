@@ -61,6 +61,7 @@ main {
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    caret-color: transparent;
 }
 
 .new-task-button { 
