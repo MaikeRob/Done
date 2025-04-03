@@ -66,10 +66,10 @@
     align-items: flex-start;
     align-self: stretch;
 
-    outline: none;
-    white-space: pre-wrap; 
+    outline: none; 
+    /* white-space: pre-wrap; 
     word-break: break-word;
-    overflow-wrap: break-word; /* Quebra palavras automaticamente */
+    overflow-wrap: break-word;*/
 
     color: #828282;
     font-family: Inter;
