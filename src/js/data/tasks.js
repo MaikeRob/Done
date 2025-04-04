@@ -24,6 +24,7 @@ export class DataTaskManager {
     static addTask(title, description) {
         const task = new Task(title, description);
         this.tasksMap.set(task.id, task);
+        task.status = 'todo';
         return task.id;
     }
 

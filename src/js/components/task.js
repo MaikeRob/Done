@@ -4,7 +4,7 @@ import '../../css/task.css';
 
 function createTask() {
 
-    const newTaskId = DataTaskManager.addTask('', '', );
+    const newTaskId = DataTaskManager.addTask('', '');
     
     const taskFrame = document.createElement('li');
     taskFrame.className = 'task-frame';
@@ -29,7 +29,7 @@ function createTask() {
     task.appendChild(taskDescription);
     taskFrame.appendChild(task);
 
-    const tasksContainer = document.querySelector('.tasks-header-container').querySelector('.new-task-button');
+    const tasksContainer = document.querySelector('.tasks-container');
 
     console.log(tasksContainer);
     tasksContainer.appendChild(taskFrame);
@@ -38,7 +38,7 @@ function createTask() {
 
 export function setupAddTaskButton() {
 
-    const button = document.querySelectorAll('.new-task-button');
+    const button = document.querySelector('.new-task-button');
 
     button.addEventListener('click', () => {
         createTask();
