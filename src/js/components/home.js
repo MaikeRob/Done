@@ -1,4 +1,4 @@
-import { setupAddTaskButton, renderTasks, setupMemoyUpdater } from './task.js';
+import { setupAddTaskButton, renderTasks, setupMemoryUpdater, setupTasksDragAndDrop } from './task.js';
 import '../../css/home.css';
 
 const template = document.createElement('template');
@@ -39,7 +39,8 @@ export function loadHome() {
     document.body.appendChild(main);
 
     setupAddTaskButton();
-    setupMemoyUpdater();
+    setupMemoryUpdater();
     renderTasks();
+    setupTasksDragAndDrop();
 
 }

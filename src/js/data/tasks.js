@@ -39,5 +39,10 @@ export class DataTaskManager {
     }
 }
 
+DataTaskManager.addTask('Tarefa 1', 'Descrição da tarefa 1');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
 
 

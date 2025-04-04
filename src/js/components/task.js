@@ -8,6 +8,7 @@ function createTask() {
     
     const taskFrame = document.createElement('li');
     taskFrame.className = 'task-frame';
+    taskFrame.setAttribute('task-id', newTaskId);  
 
     const task = document.createElement('div');
     task.className = 'task';
@@ -31,7 +32,6 @@ function createTask() {
 
     const tasksContainer = document.querySelector('.tasks-container');
 
-    console.log(tasksContainer);
     tasksContainer.appendChild(taskFrame);
 
 }
@@ -46,7 +46,7 @@ export function setupAddTaskButton() {
 
 }
 
-export function setupMemoyUpdater() {
+export function setupMemoryUpdater() {
 
     document.addEventListener('input', (event) => {
         const taskFrame = event.target.closest('.task-frame');
@@ -64,6 +64,7 @@ export function setupMemoyUpdater() {
 
 }
 
+// Dividir essa função em duas: uma para renderizar as tarefas e outra para adicionar a tarefa	?
 export function renderTasks() {
 
     const categoryContainers = document.querySelectorAll('.tasks-category-container');
@@ -78,10 +79,11 @@ export function renderTasks() {
 
         const taskFrame = document.createElement('li');
         taskFrame.className = 'task-frame';
+        taskFrame.setAttribute('task-id', task.id);  
 
-        const task = document.createElement('div');
-        task.className = 'task';
-        task.setAttribute('id', task.id);
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task';
+        taskElement.setAttribute('id', task.id);
 
         const taskTitle = document.createElement('div');
         taskTitle.className = 'task-title';
@@ -95,9 +97,9 @@ export function renderTasks() {
         taskDescription.setAttribute('data-placeholder', 'Descrição');
         taskDescription.textContent = task.description;
 
-        task.appendChild(taskTitle);
-        task.appendChild(taskDescription);
-        taskFrame.appendChild(task);
+        taskElement.appendChild(taskTitle);
+        taskElement.appendChild(taskDescription);
+        taskFrame.appendChild(taskElement);
 
         let tasksContainer;
 
@@ -105,10 +107,74 @@ export function renderTasks() {
             tasksContainer = toDoContainer;
         } else if (task.status === 'inProgress') {
             tasksContainer = inProgressContainer;
-        } else { tasksContainer = doneContainer; }  
+        } else { tasksContainer = doneContainer; } 
+      
 
         tasksContainer.appendChild(taskFrame);
 
     }
     
+}
+
+
+
+
+
+export function setupTasksDragAndDrop() {
+
+    let activeTask = null;
+    let startX = 0;
+    let startY = 0;
+
+    const onMouseMove = (event, activeTask, startX, startY) => {
+        if (activeTask) {
+            const dx = event.clientX - startX;
+            const dy = event.clientY - startY;
+
+            //console.log(event.clientY, startY, dy);
+
+            activeTask.style.left = `${dx}px`;
+            activeTask.style.top = `${dy}px`;
+        }
+    };
+
+    const onMouseUp = (event, activeTask) => {
+        if(activeTask) {
+            activeTask.classList.remove('dragging');
+            activeTask.style.position = 'static';
+
+            activeTask = null;
+
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+    };
+
+    const tasks = document.querySelectorAll('.task');
+
+    tasks.forEach((task) => {
+        
+        task.addEventListener('mousedown', (event) => {
+
+            task.classList.add('dragging');
+            task.style.position = 'relative';
+            task.style.zIndex = '1000';
+
+            activeTask = task;
+            startX = event.clientX;
+            startY = event.clientY;
+
+            const onMouseMoveReference = (event) => onMouseMove(event, activeTask, startX, startY);
+            const onMouseUpReference = (event) => onMouseUp(event, activeTask);
+
+            document.addEventListener('mousemove', onMouseMoveReference);
+            document.addEventListener('mouseup', onMouseUpReference);
+
+        });
+
+    });
+
+    
+
 }
