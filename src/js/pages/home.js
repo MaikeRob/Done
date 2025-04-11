@@ -1,4 +1,4 @@
-import { setupAddTaskButton, renderTasks, setupMemoryUpdater, setupTasksDragAndDrop } from './task.js';
+import { setupAddTaskButton, renderTasks, setupMemoryUpdater } from '../components/task/task.js';
 import '../../css/home.css';
 
 const template = document.createElement('template');
@@ -35,12 +35,10 @@ export function loadHome() {
 
     const main = template.content.querySelector('main').cloneNode(true);
 
-    // Adiciona o <nav> ao body
     document.body.appendChild(main);
 
     setupAddTaskButton();
     setupMemoryUpdater();
     renderTasks();
-    setupTasksDragAndDrop();
 
 }

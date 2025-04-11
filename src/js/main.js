@@ -1,5 +1,5 @@
 import { loadNav } from "./components/nav";
-import { loadHome } from "./components/home";
+import { loadHome } from "./pages/home";
 
 document.addEventListener("DOMContentLoaded", () => { 
     loadNav(); 

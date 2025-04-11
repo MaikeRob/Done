@@ -21,10 +21,10 @@ export class DataTaskManager {
         return this.tasksMap.get(id);
     }
 
-    static addTask(title, description) {
+    static addTask(title = '', description = '', status = 'todo') {
         const task = new Task(title, description);
         this.tasksMap.set(task.id, task);
-        task.status = 'todo';
+        task.status = status;
         return task.id;
     }
 
@@ -39,9 +39,9 @@ export class DataTaskManager {
     }
 }
 
-DataTaskManager.addTask('Tarefa 1', 'Descrição da tarefa 1');
-DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
-DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
+DataTaskManager.addTask('Tarefa 1', 'Descrição da tarefa 1', 'InProgress');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2', 'Done');
+DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2', 'todo');
 DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
 DataTaskManager.addTask('Tarefa 2', 'Descrição da tarefa 2');
 

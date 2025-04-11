@@ -41,8 +41,11 @@
 }
 
 .task.dragging {
-
-    opacity: 0.8;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    opacity: 0.6;
     user-select: none;
     caret: transparent;
     transform: rotate(5deg);
