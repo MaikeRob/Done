@@ -19,7 +19,7 @@ main {
 
 .tasks-header-container {
     display: flex;
-    height: 70px;
+    height: 11%;
     padding: 22px 35px;
     flex-direction: row;
     justify-content: center;
@@ -53,12 +53,11 @@ main {
     line-height: normal;
 }
 
-
 .new-task-button { 
     display: flex;
     width: 90px;
     height: 28px;
-    padding: 3px 0px;
+    padding: 3px 20px;
     justify-content: center;
     align-items: center;
     gap: 10px;

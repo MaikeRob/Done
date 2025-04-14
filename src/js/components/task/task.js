@@ -11,7 +11,7 @@ function createTaskElement(id, title = '', description = '') {
 
     const task = document.createElement('div');
     task.className = 'task';
-    taskFrame.setAttribute('id', id);
+    task.setAttribute('id', id);
 
     const taskTitle = document.createElement('div');
     taskTitle.className = 'task-title';

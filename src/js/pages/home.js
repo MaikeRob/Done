@@ -27,6 +27,9 @@ template.innerHTML = `
             <ul class="tasks-container">
             </ul> 
         </div>
+        <div id="delete-class">
+            <i class="fa-solid fa-trash-can"></i>
+        </div>
     </main>
 `;
 
