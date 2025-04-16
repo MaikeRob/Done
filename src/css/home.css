@@ -8,6 +8,7 @@ main {
     flex-grow: 1; /* Ocupa o restante do espaço disponível */
 }
 
+
 .tasks-category-container {
     display: flex;
     width: 28%;
@@ -73,6 +74,32 @@ main {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+#delete-container {  
+    display: none;
+    align-items: start;
+    justify-content: center;
+    height: 11%;
+    width: 100%; 
+    position: fixed;
+    bottom: -2px;
+    right: 0px;
+    transform: translateY(5px);
+    background: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 80%);
+    /*filter: blur(5px);*/
+}
+
+#delete-container.active {  
+    display: flex;
+}
+
+
+#delete-container i {
+    margin-top: 1.5%;
+    font-size: 2rem;
+    background-color: transparent;
+    color: #fd1212;
 }
 
 /*

@@ -11,7 +11,20 @@ function getClosestDropZone(activeTask) {
 
     const dropZones = document.querySelectorAll('.tasks-category-container');
 
+    const deleteDropZone = document.querySelector('#delete-container');
+    const deleteDropZoneRect = deleteDropZone.getBoundingClientRect();
+
     const taskRect = activeTask.getBoundingClientRect();
+
+
+    if( 
+        taskRect.left < deleteDropZoneRect.right &&
+        taskRect.right > deleteDropZoneRect.left &&
+        taskRect.top < deleteDropZoneRect.bottom &&
+        taskRect.bottom > deleteDropZoneRect.top 
+    ) {
+        return deleteDropZone;
+    }
 
     for( let dropZone of dropZones) { 
         const dropZoneRect = dropZone.getBoundingClientRect();
@@ -26,8 +39,8 @@ function getClosestDropZone(activeTask) {
             return dropZoneTaskContainer;
         }
 
-        
     }
+
 
     return null;
     
@@ -61,9 +74,22 @@ const onMouseMove = (event) => {
         const dx = event.clientX - dragState.startX;
         const dy = event.clientY - dragState.startY;
 
+        const activeTaskRect = dragState.activeTask.getBoundingClientRect();
+        const maxWidth = window.innerWidth;
+        const maxHeight = window.innerHeight;
+
+        if(
+            activeTaskRect.left < 5 ||
+            activeTaskRect.right > maxWidth-5 ||
+            activeTaskRect.top < 5 ||
+            activeTaskRect.bottom > maxHeight-5
+        ) {
+            return;
+        }
+
         dragState.activeTask.style.left = `${dx}px`;
         dragState.activeTask.style.top = `${dy}px`;
-
+        
     }
 };
 
@@ -71,9 +97,18 @@ const onMouseUp = (event) => {
     if(dragState.activeTask) {
         event.preventDefault();
         
+        const deleteContainer = document.getElementById('delete-container');
         const dropZone = getClosestDropZone(dragState.activeTask);
-        changeTaskCategoty(dragState.activeTask, dropZone);
 
+        if(dropZone.id === 'delete-container'){
+            DataTaskManager.removeTask(dragState.activeTask.id);
+            dragState.activeTask.parentElement.remove();
+        } else {
+            changeTaskCategoty(dragState.activeTask, dropZone);
+        }
+
+
+        deleteContainer.classList.toggle('active');
         dragState.activeTask.classList.toggle('dragging');
         dragState.activeTask.style.left = `0px`;
         dragState.activeTask.style.top = `0px`;
@@ -92,9 +127,19 @@ const onMouseUp = (event) => {
 export function setupDragAndDrop(task) {
     
     task.addEventListener('mousedown', (event) => {
+
+        if (event.target !== task) {
+            return; 
+        }
+
         event.preventDefault(); 
 
+        const deleteContainer = document.getElementById('delete-container');
+        
+        deleteContainer.classList.toggle('active');
+
         task.classList.toggle('dragging');
+
 
         dragState.activeTask = task;
         dragState.startX = event.clientX;

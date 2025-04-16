@@ -30,6 +30,9 @@ template.innerHTML = `
         <div id="delete-class">
             <i class="fa-solid fa-trash-can"></i>
         </div>
+        <div id="delete-container">
+            <i class="material-icons">delete</i>
+        </div>
     </main>
 `;
 
