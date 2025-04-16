@@ -1,17 +1,19 @@
+import { DataTaskManager } from "../../data/tasks";
 
 
 let dragState = {
     activeTask: null,
     startX: 0,
     startY: 0,
-}
+};
 
 function getClosestDropZone(activeTask) {
+
     const dropZones = document.querySelectorAll('.tasks-category-container');
 
     const taskRect = activeTask.getBoundingClientRect();
 
-    dropZones.forEach((dropZone) => {
+    for( let dropZone of dropZones) { 
         const dropZoneRect = dropZone.getBoundingClientRect();
 
         if(
@@ -20,13 +22,35 @@ function getClosestDropZone(activeTask) {
             taskRect.top < dropZoneRect.bottom &&
             taskRect.bottom > dropZoneRect.top 
         ) {
-
-            console.log(dropZone);
-            return dropZone;
+            const dropZoneTaskContainer = dropZone.querySelector('.tasks-container');
+            return dropZoneTaskContainer;
         }
-    })
 
+        
+    }
+
+    return null;
     
+}
+
+function changeTaskCategoty(task, dropTaskContainer) {
+
+    const categoryOfTask = task.parentElement.parentElement.id;
+    const categoryOfDropTaskContainer = dropTaskContainer.parentElement.id;
+
+    if (categoryOfTask === categoryOfDropTaskContainer) {
+        return;
+    }
+
+    const taskFrame = task.parentElement;
+
+    taskFrame.parentElement.removeChild(taskFrame);
+
+    dropTaskContainer.appendChild(taskFrame);
+
+    const taskId = task.id;
+
+    DataTaskManager.changeTaskStatus(taskId, categoryOfDropTaskContainer);
 }
 
 
@@ -36,25 +60,24 @@ const onMouseMove = (event) => {
 
         const dx = event.clientX - dragState.startX;
         const dy = event.clientY - dragState.startY;
-        
+
         dragState.activeTask.style.left = `${dx}px`;
         dragState.activeTask.style.top = `${dy}px`;
 
-        //console.log(dragState.activeTask.style.left);
     }
 };
 
 const onMouseUp = (event) => {
     if(dragState.activeTask) {
-        event.preventDefault(); 
+        event.preventDefault();
+        
+        const dropZone = getClosestDropZone(dragState.activeTask);
+        changeTaskCategoty(dragState.activeTask, dropZone);
+
         dragState.activeTask.classList.toggle('dragging');
         dragState.activeTask.style.left = `0px`;
         dragState.activeTask.style.top = `0px`;
-
-        //const dropZone = getClosestDropZone();
-        console.log(dragState.activeTask);
-
-        console.log(getClosestDropZone(dragState.activeTask));
+        
 
         dragState.activeTask = null;
         dragState.startX = 0;

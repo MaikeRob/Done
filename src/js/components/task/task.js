@@ -34,7 +34,7 @@ function createTaskElement(id, title = '', description = '') {
     return taskFrame;
 }
 
-function addTask(status = 'todo') {
+function addTask(status = 'to-do') {
 
     const newTaskId = DataTaskManager.addTask(status);
     
@@ -75,12 +75,10 @@ export function setupMemoryUpdater() {
 
 // Dividir essa função em duas: uma para renderizar as tarefas e outra para adicionar a tarefa	?
 export function renderTasks() {
-
-    const categoryContainers = document.querySelectorAll('.tasks-category-container');
-
-    const toDoContainer = categoryContainers[0].querySelector('.tasks-container');
-    const inProgressContainer = categoryContainers[1].querySelector('.tasks-container');
-    const doneContainer = categoryContainers[2].querySelector('.tasks-container');
+    
+    const toDoContainer = document.querySelector('#to-do .tasks-container');
+    const inProgressContainer = document.querySelector('#in-progress .tasks-container');
+    const doneContainer = document.querySelector('#done .tasks-container');
 
     const tasks = DataTaskManager.getTasks();
 
@@ -90,9 +88,9 @@ export function renderTasks() {
 
         let tasksContainer;
 
-        if (task.status === 'todo') {
+        if (task.status === 'to-do') {
             tasksContainer = toDoContainer;
-        } else if (task.status === 'inProgress') {
+        } else if (task.status === 'in-progress') {
             tasksContainer = inProgressContainer;
         } else { tasksContainer = doneContainer; } 
       

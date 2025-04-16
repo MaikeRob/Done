@@ -21,7 +21,7 @@ export class DataTaskManager {
         return this.tasksMap.get(id);
     }
 
-    static addTask(title = '', description = '', status = 'todo') {
+    static addTask(title = '', description = '', status = 'to-do') {
         const task = new Task(title, description);
         this.tasksMap.set(task.id, task);
         task.status = status;
@@ -34,8 +34,16 @@ export class DataTaskManager {
         task.description = description;
     }
 
+    static changeTaskStatus(id, status) {
+        const task = this.tasksMap.get(id);
+        task.status = status;
+    }
+
     static removeTask(id) {
         this.tasksMap.delete(id);
     }
 }
 
+DataTaskManager.addTask('Task 1', 'Description 1', 'to-do');
+DataTaskManager.addTask('Task 2', 'Description 2', 'in-progress');
+DataTaskManager.addTask('Task 3', 'Description 3', 'done');

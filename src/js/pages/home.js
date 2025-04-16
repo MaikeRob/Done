@@ -5,7 +5,7 @@ const template = document.createElement('template');
 
 template.innerHTML = `
     <main>
-        <div class="tasks-category-container">
+        <div id= "to-do" class="tasks-category-container">
             <div class="tasks-header-container">
                 <button class="new-task-button">+</button>
                 <p class="header-label">To-do</p>
@@ -13,14 +13,14 @@ template.innerHTML = `
             <ul class="tasks-container">
             </ul>
         </div>
-        <div class="tasks-category-container">
+        <div id="in-progress" class="tasks-category-container">
             <div class="tasks-header-container">
                 <p class="header-label">In progress</p>
             </div>
             <ul class="tasks-container">
             </ul>            
         </div>
-        <div class="tasks-category-container">
+        <div id="done" class="tasks-category-container">
             <div class="tasks-header-container">
                 <p class="header-label">Done</p>
             </div>
