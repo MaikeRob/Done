@@ -7,6 +7,7 @@
     font-family: 'Inter', sans-serif;
 
     outline: none;
+    scrollbar-width: none;
 }
 
 body {
@@ -15,9 +16,15 @@ body {
     align-items: stretch; /* Estica os filhos para ocupar toda a altura */
     width: 100vw;
     height: 100vh;
-    
+
     background-image: url('/images/background.png'); /* Substitua pelo caminho da sua imagem */
     background-size: cover; /* Faz a imagem cobrir todo o fundo */
     background-position: center; /* Centraliza a imagem */
     background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
