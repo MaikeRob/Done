@@ -30,7 +30,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 
 4. **Inicie o servidor de desenvolvimento**:
     ```bash
-    npm start
+    npm run preview
     ```
 
 5. **Acesse o projeto no navegador**:
