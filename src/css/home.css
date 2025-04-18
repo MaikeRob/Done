@@ -33,7 +33,7 @@ main {
 
 .header-label {
     display: flex;
-    width: 148px;
+
     height: 24px;
     padding: 4px 20px;
     justify-content: center;
@@ -54,7 +54,7 @@ main {
     line-height: normal;
 }
 
-.new-task-button { 
+.new-task-button {
     display: flex;
     width: 90px;
     height: 28px;
@@ -76,12 +76,12 @@ main {
     line-height: normal;
 }
 
-#delete-container {  
+#delete-container {
     display: none;
     align-items: start;
     justify-content: center;
     height: 11%;
-    width: 100%; 
+    width: 100%;
     position: fixed;
     bottom: -2px;
     right: 0px;
@@ -90,7 +90,7 @@ main {
     /*filter: blur(5px);*/
 }
 
-#delete-container.active {  
+#delete-container.active {
     display: flex;
 }
 

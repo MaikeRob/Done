@@ -1,4 +1,7 @@
+import { navigateTo } from '../router.js';
 import '../../css/nav.css';
+
+
 
 const template = document.createElement('template');
 let menuOpen = false;
@@ -12,15 +15,11 @@ template.innerHTML = `
             </button>
         </header>
         <ul>
-            <li>
-                Lista
+            <li id="home">
+                Home
                 <i class="material-icons">chevron_right</i>
             </li>
-            <li>
-                Calendário
-                <i class="material-icons">chevron_right</i>
-            </li>
-            <li>   
+            <li id="configs">
                 Configs
                 <i class="material-icons">chevron_right</i>
             </li>
@@ -36,7 +35,7 @@ function setupNavToggle() {
     const ul = nav.querySelector('ul');
 
     button.addEventListener('click', () => {
-        
+
         menuOpen = !menuOpen;
 
         nav.classList.toggle('expanded');
@@ -53,8 +52,24 @@ function setupNavToggle() {
 
 }
 
+function setupRouter() {
+    const nav = document.querySelector('nav');
+    const ul = nav.querySelector('ul');
+
+    ul.addEventListener('click', (event) => {
+        const target = event.target.closest('li');
+        console.log(target);
+
+        if (target) {
+            const route = "/" + target.id;
+
+            navigateTo(route);
+        }
+    });
+}
+
 export function loadNav() {
-    
+
     // Clona o conteúdo do template e retorna o <nav>
     const nav = template.content.querySelector('nav').cloneNode(true);
 
@@ -63,4 +78,7 @@ export function loadNav() {
 
     // Configura o botão de toggle do menu
     setupNavToggle()
+
+    setupRouter();
+    navigateTo("/")
 }
