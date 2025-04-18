@@ -43,3 +43,6 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 ## Licença
 
 Este projeto é apenas para fins educacionais e não possui uma licença específica.
+
+-------
+Em desenvolvimento
