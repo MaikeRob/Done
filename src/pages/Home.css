@@ -1,0 +1,10 @@
+main {
+    display: flex;
+    flex-direction: row; /* Alinha os filhos em uma linha horizontal */
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 50px;
+    flex-shrink: 0;
+    flex-grow: 1; /* Ocupa o restante do espaço disponível */
+}

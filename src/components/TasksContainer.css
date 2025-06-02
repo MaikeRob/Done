@@ -1,0 +1,15 @@
+
+.tasks-container {
+    display: flex;
+    width: 100%;
+    height: 89%;
+    max-height: 89vh;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    overflow-y: scroll;
+}
+
+.tasks-container.dragging-task {
+    overflow-y: visible;
+}
