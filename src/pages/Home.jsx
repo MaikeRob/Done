@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { TasksCategoryContainer } from "../components";
+import tasksService from "../services/tasks/tasks";
 import "./Home.css";
 
 const temporaryTasks = [
@@ -49,39 +50,82 @@ const temporaryTasks = [
 ];
 
 function Home() {
-  const [tasks, setTasks] = useState(temporaryTasks);
+  const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchTasks() {
+      try {
+        const data = await tasksService.getTasks();
+        setTasks(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar tarefas", error);
+        setError("Erro ao buscar tarefas!");
+        setIsLoading(false);
+      }
+    }
+    fetchTasks();
+  }, []);
+
+  useEffect(() => {
+    console.log("Tasks updated:", tasks);
+  }, [tasks]);
+
+  if (isLoading) {
+    return <div className="loading">Carregando tarefas...</div>;
+  }
+
 
   const toDotasks = tasks.filter((task) => task.status === "to-do");
   const inProgressTasks = tasks.filter((task) => task.status === "in-progress");
   const doneTasks = tasks.filter((task) => task.status === "done");
 
-  function onChangeTaskContent({ taskId, newTitle, newDescription }) {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
-        if (task.id === taskId) {
-          return {
-            ...task,
-            title: newTitle !== undefined ? newTitle : task.title,
-            description:
-              newDescription !== undefined ? newDescription : task.description,
-          };
-        } else {
-          return task;
-        }
-      })
-    );
+  async function onChangeTaskContent({ taskId, newTitle, newDescription }) {
+
+    const updatedData = {}
+
+    if (newTitle !== undefined) updatedData.title = newTitle;
+    if (newDescription !== undefined) updatedData.description = newDescription;
+
+    try {
+      await tasksService.editTask(taskId, updatedData);
+    } catch (error) {
+      console.error("Erro ao editar tarefa", error);
+      setError("Erro ao editar tarefa!");
+    }
+
+    // setTasks((prevTasks) =>
+    //   prevTasks.map((task) => {
+    //     if (task.id === taskId) {
+    //       return {
+    //         ...task,
+    //         title: newTitle !== undefined ? newTitle : task.title,
+    //         description:
+    //           newDescription !== undefined ? newDescription : task.description,
+    //       };
+    //     } else {
+    //       return task;
+    //     }
+    //   })
+    // );
+
   }
 
   function onDragEnd(result) {
-
     const { destination, source, draggableId } = result;
+
+    console.log("Drag result:", result);
 
     if (!destination) {
       return;
     }
 
-    if (destination.droppableId === source.droppableId &&
-        destination.index === source.index) {
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
       return;
     }
 
@@ -98,12 +142,7 @@ function Home() {
         }
       })
     );
-
   }
-
-    useEffect(() => {
-      console.log("Tasks updated:", tasks);
-    }, [onDragEnd]);
 
   function onBeforeCapture() {}
 
@@ -115,19 +154,20 @@ function Home() {
         <TasksCategoryContainer
           category="to-do"
           tasks={toDotasks}
-          onChangeTask={onChangeTaskContent}
+          onChangeTaskContent={onChangeTaskContent}
         />
         <TasksCategoryContainer
           category="in-progress"
           tasks={inProgressTasks}
-          onChangeTask={onChangeTaskContent}
+          onChangeTaskContent={onChangeTaskContent}
         />
         <TasksCategoryContainer
           category="done"
           tasks={doneTasks}
-          onChangeTask={onChangeTaskContent}
+          onChangeTaskContent={onChangeTaskContent}
         />
       </main>
+      {error && <div className="error-message">{error}</div>}
     </DragDropContext>
   );
 }

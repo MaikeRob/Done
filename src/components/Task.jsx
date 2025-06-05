@@ -23,7 +23,7 @@ function Task({ index, id, title, description, handleUpdateContent }) {
             className="task-title"
             html={titleContent.current}
             onChange={(e) => {
-              titleContent.current = e.target.value;
+              titleContent.current = e.target.value.replace(/<br\s*\/?>/gi, "").trim();;
               handleUpdateContent({ taskId: id, newTitle: titleContent.current});
             }}
             data-placeholder={placeholderTitle}
@@ -32,7 +32,7 @@ function Task({ index, id, title, description, handleUpdateContent }) {
             className="task-description"
             html={descriptionContent.current}
             onChange={(e) => {
-              descriptionContent.current = e.target.value;
+              descriptionContent.current = e.target.value.replace(/<br\s*\/?>/gi, "").trim();;
               handleUpdateContent({ taskId: id, newDescription: descriptionContent.current});
             }}
             data-placeholder={placeholderDescription}

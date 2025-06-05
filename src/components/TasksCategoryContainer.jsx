@@ -19,7 +19,7 @@ function TasksCategoryContainer({ category, tasks, onChangeTaskContent }) {
             {...provided.droppableProps}
             category={category}
             tasks={tasks}
-            onChangeTask={onChangeTaskContent}
+            onChangeTaskContent={onChangeTaskContent}
           >
             {provided.placeholder}
           </TasksContainer>
